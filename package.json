@@ -1,0 +1,23 @@
+{
+  "name": "@ripe-rnd/ui-datastores",
+  "version": "0.0.1",
+  "description": "library with adapters, (de)serializers, data transformers for UI containers",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@bitbucket.ripe.net:7999/rnd/ui-datastores.git"
+  },
+  "keywords": [
+    "UI",
+    "datastore"
+  ],
+  "author": "Jasper den Hertog",
+  "license": "ISC",
+  "dependencies": {
+    "localforage": "^1.7.3",
+    "topojson-client": "^3.0.0"
+  }
+}
