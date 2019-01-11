@@ -213,7 +213,6 @@ export const stopMsm = async ({ msmId, apiServer, dummyMode }) => {
       detail: err.detail || "unkown error"
     };
   });
-  console.log(deleteConfirmation);
   return (
     (deleteConfirmation && {
       ...deleteConfirmation.error,
