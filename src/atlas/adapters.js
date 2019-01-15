@@ -226,6 +226,40 @@ export const stopMsm = async ({ msmId, apiServer, dummyMode }) => {
   );
 };
 
+export const markMsmPublic = async ({ msmId, apiServer }) => {
+  const fetchUrl = `${atlasMeasurementsBaseUrl(apiServer)}/${msmId}`;
+
+  let response = await fetch(fetchUrl, {
+    method: "PATCH",
+    credentials: "include",
+    body: JSON.stringify({ is_public: true }),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  }).catch(errHandler);
+
+  let markSucceeded = await response.json().catch(errHandler);
+  return markSucceeded;
+};
+
+export const changeMsmDescription = async ({
+  msmId,
+  apiServer,
+  newDescription
+}) => {
+  const fetchUrl = `${atlasMeasurementsBaseUrl(apiServer)}/${msmId}`;
+
+  let response = await fetch(fetchUrl, {
+    method: "PATCH",
+    credentials: "include",
+    body: JSON.stringify({ description: newDescription }),
+    headers: { "Content-Type": "application/json" }
+  }).catch(errHandler);
+
+  let descriptionSucceeded = await response.json().catch(errHandler);
+  return descriptionSucceeded;
+};
+
 export const loadParticipationRequests = async (msmId, apiServer) => {
   // always use ES, legacy does NOT return participant_logs
   const fetchUrl = `${atlasMeasurementsBaseUrl(

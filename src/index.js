@@ -17,6 +17,8 @@ export {
   loadMsmGroupMembers,
   loadMsmPrivateData,
   stopMsm, // sends DELETE verb to msm detail URL
+  markMsmPublic, // sends PATCH {is_public: true} to change private -> public
+  changeMsmDescription, // sends PATCH {description: newDescription}
   loadCostsForMeasurement,
   loadParticipatingProbesPropertiesForMeasurement,
   loadParticipationRequests
