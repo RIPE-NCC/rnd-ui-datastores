@@ -171,19 +171,19 @@ export const stopMsm = async ({ msmId, apiServer, dummyMode }) => {
       console.log(`${fetchUrl} returned an error.`);
       console.log(err);
       if (!navigator.onLine) {
-        throw {
+        return Promise.reject({
           ...err,
           status: "error",
           detail: "Your browser doesn't currently have an internet connection.",
           message: "Browser offline"
-        };
+        });
       } else {
-        throw {
+        return Promise.reject({
           ...err,
           status: "error",
           message: "unknown error",
           detail: "An error occured while trying to stop the measurement."
-        };
+        });
       }
     });
 
@@ -198,31 +198,34 @@ export const stopMsm = async ({ msmId, apiServer, dummyMode }) => {
     response.status == 204 &&
     response.statusText === "No Content"
   ) {
-    return {
+    return Promise.resolve({
       status: response.status,
       message: "success",
       detail: "The request to stop the measurement was successful."
-    };
+    });
   }
 
   deleteConfirmation = await response.json().catch(err => {
-    throw {
+    return Promise.reject({
       ...err,
       status: response.status || "unknown",
       message: err.message || "unknown error",
       detail: err.detail || "unkown error"
-    };
+    });
   });
+
   return (
-    (deleteConfirmation && {
-      ...deleteConfirmation.error,
-      message: "Stop failed"
-    }) || {
+    (deleteConfirmation &&
+      Promise.reject({
+        ...deleteConfirmation.error,
+        message: "Stop failed"
+      })) ||
+    Promise.reject({
       status: "unknown",
       message: "unknown error",
       detail:
         "An unknown error occured while trying to send a stop request for the measurement."
-    }
+    })
   );
 };
 
