@@ -59,7 +59,11 @@ export const loadMsmDetailData = async ({
   msmId,
   apiServer,
   useES,
-  onlyFields = null
+  onlyFields = null,
+  // allow the caller to inject its own fetch function,
+  // one use-case is nodejs inserting its own node-fetch function.
+  // otherwise use the window.fetch API
+  fetch = window.fetch
 }) => {
   let fetchUrl = `${atlasMeasurementsBaseUrl(apiServer, useES)}/${msmId}`;
   fetchUrl =
