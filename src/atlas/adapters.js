@@ -74,7 +74,7 @@ export const loadMsmDetailData = async ({
     console.log(`${fetchUrl} does not exist.`);
     console.log(err);
     err.detail = err.message;
-    throw err;
+    return Promise.reject(err);
   });
 
   // HTTP status errors do NOT throw with the fetch API.
@@ -108,7 +108,7 @@ export const loadMsmDetailData = async ({
         "The server threw an error, additionally the server is talking gibberish to us.",
       status: response.status
     };
-    throw parseErr;
+    return Promise.reject(parseErr);
   });
 
   if (!response.ok) {
@@ -117,18 +117,18 @@ export const loadMsmDetailData = async ({
 
     // There is JSON, but we don't know its format!
     if (!error) {
-      throw {
+      return Promise.reject({
         detail:
           "The server threw an error, additionally the JSON from the response of the server could not be parsed.",
         status: response.status
-      };
+      });
     }
 
     const detailText =
       (error.errors && error.errors.length > 0 && error.errors[0].detail) ||
       response.statusText;
     const statusErr = { status: response.status, detail: detailText };
-    throw statusErr;
+    return Promise.reject(statusErr);
   }
 
   return msmData;
