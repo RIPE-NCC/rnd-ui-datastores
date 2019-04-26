@@ -1,6 +1,6 @@
 {
   "name": "@ripe-rnd/ui-datastores",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "library with adapters, (de)serializers, data transformers for UI containers",
   "main": "src/index.js",
   "scripts": {
