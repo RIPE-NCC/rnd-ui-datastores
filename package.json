@@ -4,7 +4,10 @@
   "description": "library with adapters, (de)serializers, data transformers for UI containers",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "preversion": "git checkout release",
+    "postversion": "git push && git push --tags && npm --registry http://pulpo.ripe.net:4873 publish && git checkout master && git checkout release package.json",
+    "publish_public": "git pull github && git checkout release && npm --registry https://registry.npmjs.org/ publish && git checkout master"
   },
   "repository": {
     "type": "git",
