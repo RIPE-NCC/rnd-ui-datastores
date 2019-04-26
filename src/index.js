@@ -24,6 +24,9 @@ export {
   loadParticipationRequests
 } from "./atlas/adapters";
 
+// trends adapters
+export { loadTrendsForMsmAndProbe } from "./trends/adapters";
+
 // atlas probes specific transformers
 export {
   mangleProbeProperties,
